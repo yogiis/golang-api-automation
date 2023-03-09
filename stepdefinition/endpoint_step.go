@@ -33,7 +33,7 @@ func (e *Entity) SendPOSTEndpointWithBodyFormUrlEncoded(table *godog.Table) erro
 		}
 	}
 
-	hitEndpoint, err := http.NewRequest(http.MethodGet, e.UrlEndpoint, strings.NewReader(formData.Encode()))
+	hitEndpoint, err := http.NewRequest(http.MethodPost, e.UrlEndpoint, strings.NewReader(formData.Encode()))
 	helper.LogPanicln(err)
 	hitEndpoint.Header.Add("Content-Type", "application/x-www-form-urlencoded")
 	AddAPIKeyHeaderIfHas(hitEndpoint)
