@@ -1,0 +1,249 @@
+{
+  "openapi": "3.0.2",
+  "info": {
+    "title": "Users API",
+    "version": "1.0"
+  },
+  "servers": [{ "url": "http:localhost:3000" }],
+  "paths": {
+    "/users": {
+      "get": {
+        "security": [
+          {
+            "UsersAuth": []
+          }
+        ],
+        "tags": ["Users API"],
+        "description": "List All Users",
+        "summary": "List All Users",
+        "responses": {
+          "200": {
+            "description": "Success Get All Users",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "number"
+                    },
+                    "status": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Users"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "description": "Create New User",
+        "summary": "Create New User",
+        "security": [
+          {
+            "UsersAuth": []
+          }
+        ],
+        "tags": ["Users API"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateOrUpdateUsers"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success Create User",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "number"
+                    },
+                    "status": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/Users"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/{userId}": {
+      "get": {
+        "security": [
+          {
+            "UsersAuth": []
+          }
+        ],
+        "tags": ["Users API"],
+        "summary": "Get users by Id",
+        "description": "Get users by id",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "User Id"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success get user Id",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "number"
+                    },
+                    "status": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/Users"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "security": [
+          {
+            "UsersAuth": []
+          }
+        ],
+        "tags": ["Users API"],
+        "description": "Update Users By Id",
+        "summary": "Update Users By Id",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "User Id"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateOrUpdateUsers"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success get user Id",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "number"
+                    },
+                    "status": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/Users"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "security": [
+          {
+            "UsersAuth": []
+          }
+        ],
+        "tags": ["Users API"],
+        "summary": "Delete users by Id",
+        "description": "Delete users by id",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "User Id"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success delete user Id",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "number"
+                    },
+                    "status": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "securitySchemes": {
+        "UsersAuth": {
+          "type": "apiKey",
+          "in": "header",
+          "name": "API-Key",
+          "description": "Authentication for uses API"
+        }
+      },
+      "CreateOrUpdateUsers": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          }
+        }
+      },
+      "Users": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "name": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

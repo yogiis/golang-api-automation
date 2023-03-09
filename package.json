@@ -1,0 +1,22 @@
+{
+  "name": "golang-api-automation",
+  "version": "1.0.0",
+  "description": "Golang API Automation Framework",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yogiis/golang-api-automation.git"
+  },
+  "author": "yogiis",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/yogiis/golang-api-automation/issues"
+  },
+  "homepage": "https://github.com/yogiis/golang-api-automation#readme",
+  "dependencies": {
+    "cucumber-html-reporter": "^5.5.0"
+  }
+}
