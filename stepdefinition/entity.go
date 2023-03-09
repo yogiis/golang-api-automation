@@ -12,6 +12,6 @@ type Entity struct {
 	UrlEndpoint  string
 	ResponseData *http.Response
 	Testing      testing.T
-	cases        helper.Case
+	Cases        helper.Case
 	ResponseBody []byte
 }
