@@ -1,11 +1,22 @@
 {
   "type": "object",
   "properties": {
-    "id": {
+    "code": {
       "type": "integer"
     },
-    "value": {
+    "status": {
       "type": "string"
+    },
+    "data": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        }
+      }
     }
   }
 }

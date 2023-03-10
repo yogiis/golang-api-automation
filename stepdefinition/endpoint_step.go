@@ -12,7 +12,6 @@ import (
 	"github.com/yogiis/golang-api-automation/helper"
 )
 
-// function code for setup env host and url path
 func (e *Entity) GivenEndpoint(host string, endpoint string) error {
 	env := godotenv.Load()
 	helper.LogPanicln(env)
@@ -23,7 +22,6 @@ func (e *Entity) GivenEndpoint(host string, endpoint string) error {
 	return nil
 }
 
-// function code for send http request with type body x-www-form-urlencoded
 func (e *Entity) SendPOSTEndpointWithBodyFormUrlEncoded(table *godog.Table) error {
 	formData := url.Values{}
 
@@ -49,7 +47,6 @@ func (e *Entity) SendPOSTEndpointWithBodyFormUrlEncoded(table *godog.Table) erro
 	return nil
 }
 
-// function code for send http request without body
 func (e *Entity) SendGETEndpointWithoutBody() error {
 	hitEndpoint, err := http.NewRequest(http.MethodGet, e.UrlEndpoint, nil)
 	helper.LogPanicln(err)
@@ -67,7 +64,6 @@ func (e *Entity) SendGETEndpointWithoutBody() error {
 	return nil
 }
 
-// function code for send http request with type body json
 func (e *Entity) SendPOSTEndpointWithBodyJSON(requestBody *godog.DocString) error {
 	hitEndpoint, err := http.NewRequest(http.MethodPost, e.UrlEndpoint, bytes.NewBuffer([]byte(string([]byte(requestBody.Content)))))
 	helper.LogPanicln(err)
@@ -88,6 +84,42 @@ func (e *Entity) SendPOSTEndpointWithBodyJSON(requestBody *godog.DocString) erro
 func (e *Entity) SendGETEndpointWithParams(params string) error {
 	e.UrlEndpoint = e.UrlEndpoint + params
 	hitEndpoint, err := http.NewRequest(http.MethodGet, e.UrlEndpoint, nil)
+	helper.LogPanicln(err)
+	hitEndpoint.Header.Add("Content-Type", "application/json")
+	AddAPIKeyHeaderIfHas(hitEndpoint)
+
+	e.ResponseData, err = SendHTTPRequest(hitEndpoint)
+	helper.LogPanicln(err)
+
+	e.ResponseBody, err = ReaderResponseBody(e.ResponseData)
+	helper.LogPanicln(err)
+
+	defer CloseResponseBody(e.ResponseData)
+
+	return nil
+}
+
+func (e *Entity) SendPUTEndpointWithBodyJSON(params string, requestBody *godog.DocString) error {
+	e.UrlEndpoint = e.UrlEndpoint + params
+	hitEndpoint, err := http.NewRequest(http.MethodPut, e.UrlEndpoint, bytes.NewBuffer([]byte(string([]byte(requestBody.Content)))))
+	helper.LogPanicln(err)
+	hitEndpoint.Header.Add("Content-Type", "application/json")
+	AddAPIKeyHeaderIfHas(hitEndpoint)
+
+	e.ResponseData, err = SendHTTPRequest(hitEndpoint)
+	helper.LogPanicln(err)
+
+	e.ResponseBody, err = ReaderResponseBody(e.ResponseData)
+	helper.LogPanicln(err)
+
+	defer CloseResponseBody(e.ResponseData)
+
+	return nil
+}
+
+func (e *Entity) SendDELETEEndpointWithParams(params string) error {
+	e.UrlEndpoint = e.UrlEndpoint + params
+	hitEndpoint, err := http.NewRequest(http.MethodDelete, e.UrlEndpoint, nil)
 	helper.LogPanicln(err)
 	hitEndpoint.Header.Add("Content-Type", "application/json")
 	AddAPIKeyHeaderIfHas(hitEndpoint)
