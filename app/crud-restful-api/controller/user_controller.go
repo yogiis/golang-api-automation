@@ -29,8 +29,10 @@ func RouteUserController(userService service.UserService) UserController {
 }
 
 func (c *NewUserController) Create(writer http.ResponseWriter, request *http.Request, params httprouter.Params) {
-	userCreateRequest := model.UserCreateRequest{}
-	helpers.ReadFromRequestBody(request, &userCreateRequest)
+	request.ParseForm()
+	userCreateRequest := model.UserCreateRequest{
+		Name: request.FormValue("name"),
+	}
 
 	userResponse := c.UserService.Create(request.Context(), userCreateRequest)
 	newUserResponse := model.FormatterResponse{
