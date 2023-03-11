@@ -27,13 +27,9 @@ func RouteUserRepository() UserRepository {
 
 func (repository *NewUserRepository) Save(ctx context.Context, tx *sql.Tx, user model.UserModel) model.UserModel {
 	SQL := "insert into users(name) values ($1) returning id"
-	result, err := tx.ExecContext(ctx, SQL, user.Name)
+	row := tx.QueryRowContext(ctx, SQL, user.Name)
+	err := row.Scan(&user.Id)
 	helpers.LogPanicError(err)
-
-	id, err := result.LastInsertId()
-	helpers.LogPanicError(err)
-
-	user.Id = int(id)
 
 	return user
 }
