@@ -26,7 +26,7 @@ func RouteUserRepository() UserRepository {
 }
 
 func (repository *NewUserRepository) Save(ctx context.Context, tx *sql.Tx, user model.UserModel) model.UserModel {
-	SQL := "insert into users(name) values (?)"
+	SQL := "insert into users(name) values ($1) returning id"
 	result, err := tx.ExecContext(ctx, SQL, user.Name)
 	helpers.LogPanicError(err)
 
@@ -39,7 +39,7 @@ func (repository *NewUserRepository) Save(ctx context.Context, tx *sql.Tx, user 
 }
 
 func (repository *NewUserRepository) Update(ctx context.Context, tx *sql.Tx, user model.UserModel) model.UserModel {
-	SQL := "update users set name = ? where id = ?"
+	SQL := "update users set name = $1 where id = $2"
 	_, err := tx.ExecContext(ctx, SQL, user.Name, user.Id)
 	helpers.LogPanicError(err)
 
@@ -47,13 +47,13 @@ func (repository *NewUserRepository) Update(ctx context.Context, tx *sql.Tx, use
 }
 
 func (repository *NewUserRepository) Delete(ctx context.Context, tx *sql.Tx, user model.UserModel) {
-	SQL := "delete from users where id = ?"
+	SQL := "delete from users where id = $1"
 	_, err := tx.ExecContext(ctx, SQL, user.Id)
 	helpers.LogPanicError(err)
 }
 
 func (repository *NewUserRepository) FindById(ctx context.Context, tx *sql.Tx, userId int) (model.UserModel, error) {
-	SQL := "select id, name from users where id = ?"
+	SQL := "select id, name from users where id = $1"
 	rows, err := tx.QueryContext(ctx, SQL, userId)
 	helpers.LogPanicError(err)
 	defer rows.Close()
