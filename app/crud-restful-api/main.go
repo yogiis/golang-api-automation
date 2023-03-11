@@ -1,7 +1,9 @@
 package main
 
 import (
+	"fmt"
 	"net/http"
+	"os"
 
 	"github.com/go-playground/validator/v10"
 	_ "github.com/go-sql-driver/mysql"
@@ -31,8 +33,10 @@ func main() {
 
 	router.PanicHandler = helpers.ErrorHandler
 
+	port := os.Getenv("PORT")
+	runWithPort := fmt.Sprintf("0.0.0.0:%s", port)
 	server := http.Server{
-		Addr:    "0.0.0.0:3000",
+		Addr:    runWithPort,
 		Handler: middleware.NewAuthMiddleware(router),
 	}
 
