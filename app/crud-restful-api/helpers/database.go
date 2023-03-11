@@ -7,6 +7,7 @@ import (
 	"time"
 
 	"github.com/joho/godotenv"
+	_ "github.com/lib/pq"
 )
 
 func NewDB() *sql.DB {
@@ -15,9 +16,15 @@ func NewDB() *sql.DB {
 		log.Fatal("Error loading .env file")
 	}
 
-	passworddb := os.Getenv("PASSWORDDB")
-	db, err := sql.Open("mysql", "root:"+passworddb+"@tcp(localhost:3306)/crudapi")
-	LogPanicError(err)
+	dbHost := os.Getenv("DB_HOST")
+	dbUser := os.Getenv("DB_USER")
+	dbPassword := os.Getenv("DB_PASSWORD")
+	dbName := os.Getenv("DB_NAME")
+
+	db, err := sql.Open("postgres", "postgres://"+dbUser+":"+dbPassword+"@"+dbHost+"/"+dbName+"?sslmode=disable")
+	if err != nil {
+		log.Fatal("Failed to connect to database: ", err)
+	}
 
 	db.SetMaxIdleConns(5)
 	db.SetMaxOpenConns(20)
