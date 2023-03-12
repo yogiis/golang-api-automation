@@ -15,6 +15,7 @@ func TestFeatures(t *testing.T) {
 			Format:   "pretty,cucumber:./report/cucumber.json",
 			Paths:    []string{"features"},
 			TestingT: t, // Testing instance that will run subtests.
+			Tags:     "@smoke,~@exclude",
 		},
 	}
 
