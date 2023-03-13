@@ -2,7 +2,7 @@ name: API Test CRUD Restful API
 
 on:
   push:
-    branches: [ci-cd-automation-test]
+    branches: [master]
 
 jobs:
   test:
