@@ -1,0 +1,46 @@
+name: API Test CRUD Restful API
+
+on:
+  push:
+    branches: [master]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Install Go
+        uses: actions/setup-go@v2
+        with:
+          go-version: 1.20.1
+
+      - name: Install Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16.x
+
+      - name: Install dependencies
+        run: |
+          go mod tidy
+          npm install
+
+      - name: Prepare environment
+        run: |
+          cp env.sample .env
+          mkdir -p report
+          echo "Prepare is completed"
+
+      - name: Run tests and Generate report
+        run: |
+          go test -v -tags=@smoke
+          node index.js
+
+      - name: Copy test results to artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: test-results
+          path: ${{ github.workspace }}/report/
+          retention-days: 1
