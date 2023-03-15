@@ -8,7 +8,6 @@ import (
 )
 
 type Entity struct {
-	Token        string `json:"token"`
 	UrlEndpoint  string
 	ResponseData *http.Response
 	Testing      testing.T
