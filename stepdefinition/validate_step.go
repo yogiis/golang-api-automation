@@ -12,15 +12,14 @@ import (
 
 var json_data interface{}
 
-// function code for validate response status code
 func (t *Entity) ValidateStatusCode(expected string) error {
 	fmt.Printf("Respon Body : %v ", string(t.ResponseBody))
 
 	t.Cases.AssertEqual(expected, t.ResponseData.StatusCode, helper.ErrorHandleEqual(expected, t.ResponseData.StatusCode))
+
 	return nil
 }
 
-// function code for validate response body by value
 func (t *Entity) ValidateResponseBody(path, expected string) error {
 	jsonpath, err := jsonpath.Compile(path)
 	helper.LogPanicln(err)
@@ -31,14 +30,13 @@ func (t *Entity) ValidateResponseBody(path, expected string) error {
 	return nil
 }
 
-// function code for handle if an error occurs
 func (t *Entity) assertEqualByValue(jsonPath *jsonpath.Compiled, expected string) {
 	actual, err := jsonPath.Lookup(json_data)
 	helper.LogPanicln(err)
+
 	t.Cases.AssertEqual(expected, actual, helper.ErrorHandleEqual(expected, actual))
 }
 
-// function code for validate response body by json schema
 func (t *Entity) ValidateJSONSchema(jsonSchemaPath string) error {
 	schemaLoader := gojsonschema.NewReferenceLoader(jsonSchemaPath)
 	jsonLoader := gojsonschema.NewBytesLoader(t.ResponseBody)
