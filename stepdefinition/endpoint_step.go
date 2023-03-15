@@ -65,7 +65,7 @@ func (e *Entity) SendGETEndpointWithoutBody() error {
 }
 
 func (e *Entity) SendPOSTEndpointWithBodyJSON(requestBody *godog.DocString) error {
-	hitEndpoint, err := http.NewRequest(http.MethodPost, e.UrlEndpoint, bytes.NewBuffer([]byte(string([]byte(requestBody.Content)))))
+	hitEndpoint, err := http.NewRequest(http.MethodPost, e.UrlEndpoint, bytes.NewBuffer([]byte(requestBody.Content)))
 	helper.LogPanicln(err)
 	hitEndpoint.Header.Add("Content-Type", "application/json")
 	AddAPIKeyHeaderIfHas(hitEndpoint)
@@ -101,7 +101,7 @@ func (e *Entity) SendGETEndpointWithParams(params string) error {
 
 func (e *Entity) SendPUTEndpointWithBodyJSON(params string, requestBody *godog.DocString) error {
 	e.UrlEndpoint = e.UrlEndpoint + params
-	hitEndpoint, err := http.NewRequest(http.MethodPut, e.UrlEndpoint, bytes.NewBuffer([]byte(string([]byte(requestBody.Content)))))
+	hitEndpoint, err := http.NewRequest(http.MethodPut, e.UrlEndpoint, bytes.NewBuffer([]byte(requestBody.Content)))
 	helper.LogPanicln(err)
 	hitEndpoint.Header.Add("Content-Type", "application/json")
 	AddAPIKeyHeaderIfHas(hitEndpoint)
