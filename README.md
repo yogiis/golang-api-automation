@@ -1,8 +1,51 @@
-<head>
-	<meta property="og:title" content="Golang API Automation with Godog">
-	<meta property="og:description" content="Building a Robust API Test Automation Framework with Godog in Golang">
-	<meta property="og:image" content="https://media.licdn.com/dms/image/C5603AQFEme0LfcChVA/profile-displayphoto-shrink_800_800/0/1629361511615?e=1684368000&v=beta&t=uNGVWTQbNilCm8JyW7ivR4M2kHH9HKZSPenDUm4VyGY">
-	<meta property="og:type" content="website">
-	<meta property="og:url" content="https://github.com/yogiis/golang-api-automation">
-</head>
-# golang-api-automation
+# Boilerplate API Automation Testing with Golang
+
+## Prerequisites
+
+- Install Golang
+- Install Node.js and npm
+- Godog https://github.com/cucumber/godog
+- Testify https://github.com/stretchr/testify
+- JSON Path https://github.com/oliveagle/jsonpath
+- GoJSON Schema https://github.com/xeipuuv/gojsonschema
+
+## Tested on
+
+- Golang version `v1.20.1`
+- Node version `v14.19.3`
+- NPM `6.14.17`
+- Godog version `0.12.6`
+- Testify version `v1.8.2`
+- GoJSON Shcema `v1.20`
+
+## How to Getting Started
+
+```sh
+$ cd [project]
+$ npm install
+$ mkdir report
+$ cp env.sample .env
+```
+
+## Own Service
+
+- https://golang-api-automation-production.up.railway.app (if it doesn't mean I have turned off the service)
+
+## Run the test
+
+You can specify the command that you want to run.
+
+###### Here are our default commands
+
+```sh
+$ go test                                         | to run test
+$ node index.js                                   | to generate report html
+```
+
+## Contribution
+
+Contributions are welcome, feel free to submit pull requests or open issues for discussion.
+
+## Contact
+
+<yogiis.ari047@gmail.com> - Feel free to email me with any questions or suggestions.

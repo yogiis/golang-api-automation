@@ -6,7 +6,7 @@ elif [ "$1" == "test-report" ]; then
     go test -v
     node index.js
 else
-    echo "Usage: run [test|test -o]"
+    echo "Usage: run [test|test-report]"
     exit 1
 fi
 
