@@ -35,7 +35,7 @@ jobs:
 
       - name: Run tests and Generate report
         run: |
-          go test -v -tags=@smoke
+          go test
           node index.js
 
       - name: Copy test results to artifacts
