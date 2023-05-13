@@ -35,7 +35,6 @@ jobs:
 
       - name: Run tests and Generate report
         run: |
-          rm -r features/testrail/*
           mkdir features/testrail
           cd features/testrail
           curl -o crud.feature -H "Content-Type: application/json" \
