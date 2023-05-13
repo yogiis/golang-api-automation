@@ -36,8 +36,8 @@ jobs:
       - name: Run tests and Generate report
         run: |
           rm -r features/*
-          mkdir features/test-rail
-          cd features/test-rail
+          mkdir features
+          cd features
           curl -o crud.feature -H "Content-Type: application/json" \
           -u "${{ secrets.EMAIL }}:${{ secrets.TESTRAIL_API_KEY }}" \
           --location --request GET "https://karura.testrail.com/index.php?/api/v2/get_bdd/1"
