@@ -2,7 +2,7 @@ name: API Test CRUD Restful API
 
 on:
   push:
-    branches: [master]
+    branches: [ci-cd-testrail-automation-test]
 
 jobs:
   test:
@@ -35,6 +35,14 @@ jobs:
 
       - name: Run tests and Generate report
         run: |
+          rm -r features/testrail/*
+          mkdir features/testrail
+          cd features/testrail
+          curl -o crud.feature -H "Content-Type: application/json" \
+          -u "${{ secrets.EMAIL }}:${{ secrets.TESTRAIL_API_KEY }}" \
+          --location --request GET "https://karura.testrail.com/index.php?/api/v2/get_bdd/1"
+          cd ../..
+          pwd 
           go test
           node index.js
 
