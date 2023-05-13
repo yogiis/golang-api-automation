@@ -35,7 +35,6 @@ jobs:
 
       - name: Run tests and Generate report
         run: |
-          pwd
           rm -r features/*
           mkdir features/test-rail
           cd features/test-rail
