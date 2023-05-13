@@ -1,5 +1,6 @@
 Feature: CRUD
-  Scenario: Example Update by users id
+ @example
+ Scenario: Example Update by users id
     Given i set host "ENV_HOST_API" with endpoint "/api/users"
     When i send request using method PUT with params "/1" and type body json:
       """
