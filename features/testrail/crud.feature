@@ -1,6 +1,4 @@
-Feature: CRUD Restful API
-
-  @example
+Feature: CRUD
   Scenario: Example Update by users id
     Given i set host "ENV_HOST_API" with endpoint "/api/users"
     When i send request using method PUT with params "/1" and type body json:
@@ -37,3 +35,5 @@ Feature: CRUD Restful API
     When i send request using method DELETE with params "/13"
     Then assert status code is "200"
     And assert value "$.status" equal is "OK"
+
+
