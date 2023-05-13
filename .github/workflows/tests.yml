@@ -40,7 +40,7 @@ jobs:
           curl -o crud.feature -H "Content-Type: application/json" \
           -u "${{ secrets.EMAIL }}:${{ secrets.TESTRAIL_API_KEY }}" \
           --location --request GET "https://karura.testrail.com/index.php?/api/v2/get_bdd/1"
-          cd ../..
+          cd ..
           pwd 
           go test
           node index.js
