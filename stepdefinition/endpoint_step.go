@@ -10,7 +10,18 @@ import (
 	"github.com/cucumber/godog"
 	"github.com/joho/godotenv"
 	"github.com/yogiis/golang-api-automation/helper"
+	"gorm.io/driver/mysql"
+	"gorm.io/gorm"
 )
+
+func (e *Entity) InitializeDB() error {
+	var err error
+	dsn := "root:@tcp(127.0.0.1:3306)/users?charset=utf8mb4&parseTime=True&loc=Local"
+	e.db, err = gorm.Open(mysql.Open(dsn), &gorm.Config{})
+	helper.LogPanicln(err)
+
+	return nil
+}
 
 func (e *Entity) GivenEndpoint(host string, endpoint string) error {
 	env := godotenv.Load()
