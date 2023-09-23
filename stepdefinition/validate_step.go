@@ -6,11 +6,20 @@ import (
 
 	"github.com/oliveagle/jsonpath"
 	"github.com/xeipuuv/gojsonschema"
-
 	"github.com/yogiis/golang-api-automation/helper"
 )
 
 var json_data interface{}
+
+func (t *Entity) ValidateValueDB(query, expected string) error {
+	var actual string
+	result := t.db.Raw(query).Scan(&actual)
+	helper.LogPanicln(result.Error)
+
+	t.Cases.AssertEqual(expected, actual, helper.ErrorHandleEqual(expected, actual))
+
+	return nil
+}
 
 func (t *Entity) ValidateStatusCode(expected string) error {
 	fmt.Printf("Respon Body : %v ", string(t.ResponseBody))
